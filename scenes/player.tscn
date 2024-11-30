@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d0axoyv1suq67"]
+[gd_scene load_steps=30 format=3 uid="uid://d0axoyv1suq67"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_j5ujd"]
 [ext_resource type="Texture2D" uid="uid://bc2btg3kkyycm" path="res://assets/Sprites/Player/Idle.png" id="2_h68s2"]
@@ -218,23 +218,18 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujrwx"]
 radius = 6.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jkvx0"]
-size = Vector2(8, 8)
-
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
+y_sort_enabled = true
+collision_layer = 2
 script = ExtResource("1_j5ujd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_gbg7n")
 animation = &"idle_right"
 autoplay = "idle_right"
+offset = Vector2(0, -13)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_ujrwx")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_jkvx0")
