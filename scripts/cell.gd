@@ -15,14 +15,15 @@ enum State {Healthy, Crumbled, Broken}
 var curr_state = State.Healthy
 
 func _on_detection_body_exited(body: Node2D) -> void:
-	# Crack Healthy cell on player exit
-	if curr_state == State.Healthy:
-		curr_state = State.Crumbled
-		crumbled.visible = true
-		healthy.visible = false
-	# Destroy Cracked cell on player exit
-	elif curr_state == State.Crumbled:
-		curr_state = State.Broken
-		broken.visible = true
-		crumbled.visible = false
-		collision_shape.call_deferred("set", "disabled", false)
+	if body.is_in_group('Player'):
+		# Crack Healthy cell on player exit
+		if curr_state == State.Healthy:
+			curr_state = State.Crumbled
+			crumbled.visible = true
+			healthy.visible = false
+		# Destroy Cracked cell on player exit
+		elif curr_state == State.Crumbled:
+			curr_state = State.Broken
+			broken.visible = true
+			crumbled.visible = false
+			collision_shape.call_deferred("set", "disabled", false)

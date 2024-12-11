@@ -10,6 +10,7 @@ size = Vector2(48, 48)
 size = Vector2(48, 43)
 
 [node name="Cell" type="Node2D"]
+z_index = -1
 script = ExtResource("1_hlxwg")
 
 [node name="Detection" type="Area2D" parent="."]
