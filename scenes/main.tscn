@@ -516,7 +516,7 @@ tile_set = SubResource("TileSet_x1bgr")
 
 [node name="Player" parent="." instance=ExtResource("1_ki16c")]
 unique_name_in_owner = true
-position = Vector2(22, -2)
+position = Vector2(345, -63)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2.5, 2.5)
@@ -818,6 +818,7 @@ position = Vector2(664, 248)
 [node name="ItemUsePuzzle" type="Node" parent="."]
 
 [node name="Fog" parent="ItemUsePuzzle" instance=ExtResource("5_q7li8")]
+visible = false
 position = Vector2(506, 83)
 
 [node name="ClothRoll" parent="ItemUsePuzzle" instance=ExtResource("7_qvpex")]
