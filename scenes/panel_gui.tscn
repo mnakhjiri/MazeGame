@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/panel_gui.gd" id="1_npobi"]
 
 [node name="PanelGUI" type="Control"]
+z_index = 2
 custom_minimum_size = Vector2(985, 430)
 layout_mode = 3
 anchors_preset = 0

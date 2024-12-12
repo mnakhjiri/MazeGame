@@ -2,8 +2,6 @@ extends Node
 
 # Global functions
 
-signal success
-signal fail
 
 # Item use Puzzle
 enum Items {Oil, Cloth, Stick}
@@ -45,7 +43,7 @@ func decrease_turns():
 		timer.start()
 		await timer.timeout
 		
-		fail.emit()
+		Global.fail.emit('match')
 
 func update_slot_occupancy(slot_id: int, is_occupied: bool) -> void:
 	slot_occupancy[slot_id] = is_occupied
@@ -55,4 +53,4 @@ func check_match_puzzle() -> void:
 	for slot_id in solution_slots:
 		if not slot_occupancy.get(slot_id, false):  # If a required slot is not occupied
 			return
-	success.emit()
+	Global.success.emit('match')
