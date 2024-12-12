@@ -1,2 +1,3 @@
 res://scenes/main.tscn
 res://scenes/panel_gui.tscn
+res://scripts/guess_puzzle.gd
