@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://bgsj4pso4et0k"]
+[gd_scene load_steps=40 format=4 uid="uid://bgsj4pso4et0k"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_1riqy"]
 [ext_resource type="PackedScene" uid="uid://d0axoyv1suq67" path="res://scenes/player.tscn" id="1_ki16c"]
@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bd3i6gpsggeb4" path="res://scenes/match_slot.tscn" id="13_iends"]
 [ext_resource type="PackedScene" uid="uid://by26rqc748mn" path="res://scenes/match.tscn" id="13_m7kun"]
 [ext_resource type="PackedScene" uid="uid://cs2p2i5cchgkn" path="res://scenes/discovery_clue.tscn" id="14_d7whu"]
-[ext_resource type="Script" path="res://scenes/scoreboard_layer.gd" id="15_jp2hi"]
+[ext_resource type="Script" path="res://scripts/scoreboard_layer.gd" id="15_jp2hi"]
 [ext_resource type="PackedScene" uid="uid://bcme3tlvq8g4h" path="res://scenes/black_hole.tscn" id="16_d3vpv"]
 [ext_resource type="Texture2D" uid="uid://bm0gdjgske8bc" path="res://assets/Sprites/scoreboard/coin_green.png" id="17_gsgv8"]
 [ext_resource type="Texture2D" uid="uid://cgim3elivgber" path="res://assets/Sprites/scoreboard/coin.png" id="17_taprj"]
@@ -31,6 +31,7 @@
 [ext_resource type="Script" path="res://scripts/logic_puzzle.gd" id="25_8tojh"]
 [ext_resource type="FontFile" uid="uid://dj2hsppxv5xb3" path="res://assets/Fonts/PixelOperator8-Bold.ttf" id="28_0hy8i"]
 [ext_resource type="Script" path="res://scripts/guess_puzzle.gd" id="29_mlke4"]
+[ext_resource type="PackedScene" uid="uid://2ovhx3f2b6ue" path="res://scenes/fog_teleporter.tscn" id="32_jyxkp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2tm8"]
 texture = ExtResource("3_sa620")
@@ -550,7 +551,7 @@ tile_set = SubResource("TileSet_x1bgr")
 
 [node name="Player" parent="." instance=ExtResource("1_ki16c")]
 unique_name_in_owner = true
-position = Vector2(67, 0)
+position = Vector2(23, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2.5, 2.5)
@@ -565,6 +566,113 @@ theme_override_fonts/font = ExtResource("12_65vxo")
 theme_override_font_sizes/font_size = 8
 text = "<tab> to open puzzle"
 horizontal_alignment = 1
+
+[node name="FogTeleporters" type="Node" parent="."]
+
+[node name="FogTeleporter" parent="FogTeleporters" instance=ExtResource("32_jyxkp")]
+position = Vector2(440, 56)
+rotation = 1.5708
+
+[node name="EntranceDetector" parent="FogTeleporters/FogTeleporter" index="0"]
+position = Vector2(1.74846e-07, 4)
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter/EntranceDetector" index="0"]
+position = Vector2(1.09278e-08, 0)
+
+[node name="TeleportDetector1" parent="FogTeleporters/FogTeleporter" index="1"]
+position = Vector2(28, -96)
+rotation = -1.5708
+
+[node name="TeleportDetector2" parent="FogTeleporters/FogTeleporter" index="2"]
+position = Vector2(-64, -60)
+
+[node name="TeleportDetector3" parent="FogTeleporters/FogTeleporter" index="3"]
+position = Vector2(-92, -32)
+rotation = -1.5708
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter/TeleportDetector3" index="0"]
+disabled = true
+
+[node name="DestinationPoint" parent="FogTeleporters/FogTeleporter" index="4"]
+position = Vector2(9, 32)
+
+[node name="FogTeleporter2" parent="FogTeleporters" instance=ExtResource("32_jyxkp")]
+position = Vector2(472, -40)
+
+[node name="EntranceDetector" parent="FogTeleporters/FogTeleporter2" index="0"]
+position = Vector2(0, -4)
+
+[node name="TeleportDetector1" parent="FogTeleporters/FogTeleporter2" index="1"]
+position = Vector2(92, 32)
+rotation = 1.5708
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter2/TeleportDetector1" index="0"]
+disabled = true
+
+[node name="TeleportDetector2" parent="FogTeleporters/FogTeleporter2" index="2"]
+position = Vector2(-28, 96)
+rotation = 1.5708
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter2/TeleportDetector2" index="0"]
+disabled = true
+
+[node name="TeleportDetector3" parent="FogTeleporters/FogTeleporter2" index="3"]
+position = Vector2(28, 96)
+rotation = 1.5708
+
+[node name="DestinationPoint" parent="FogTeleporters/FogTeleporter2" index="4"]
+position = Vector2(0, -23)
+
+[node name="FogTeleporter3" parent="FogTeleporters" instance=ExtResource("32_jyxkp")]
+position = Vector2(440, 184)
+rotation = 1.5708
+
+[node name="EntranceDetector" parent="FogTeleporters/FogTeleporter3" index="0"]
+position = Vector2(1.74846e-07, 4)
+
+[node name="TeleportDetector1" parent="FogTeleporters/FogTeleporter3" index="1"]
+position = Vector2(-64, -60)
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter3/TeleportDetector1" index="0"]
+position = Vector2(0, 4.37114e-08)
+
+[node name="TeleportDetector2" parent="FogTeleporters/FogTeleporter3" index="2"]
+position = Vector2(-1.74846e-07, -4)
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter3/TeleportDetector2" index="0"]
+disabled = true
+
+[node name="TeleportDetector3" parent="FogTeleporters/FogTeleporter3" index="3"]
+position = Vector2(-1.74846e-07, -4)
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter3/TeleportDetector3" index="0"]
+disabled = true
+
+[node name="DestinationPoint" parent="FogTeleporters/FogTeleporter3" index="4"]
+position = Vector2(8, 32)
+
+[node name="FogTeleporter4" parent="FogTeleporters" instance=ExtResource("32_jyxkp")]
+position = Vector2(536, 84)
+
+[node name="EntranceDetector" parent="FogTeleporters/FogTeleporter4" index="0"]
+position = Vector2(-28, -28)
+rotation = 1.5708
+
+[node name="TeleportDetector1" parent="FogTeleporters/FogTeleporter4" index="1"]
+position = Vector2(-64, 64)
+
+[node name="TeleportDetector2" parent="FogTeleporters/FogTeleporter4" index="2"]
+position = Vector2(-36, -92)
+rotation = 1.5708
+
+[node name="TeleportDetector3" parent="FogTeleporters/FogTeleporter4" index="3"]
+position = Vector2(-64, -120)
+
+[node name="CollisionShape2D" parent="FogTeleporters/FogTeleporter4/TeleportDetector3" index="0"]
+disabled = true
+
+[node name="DestinationPoint" parent="FogTeleporters/FogTeleporter4" index="4"]
+position = Vector2(-28, -17)
 
 [node name="Portals" type="Node" parent="."]
 
@@ -602,7 +710,7 @@ position = Vector2(-173, -320)
 position = Vector2(344, -264)
 
 [node name="DestinationPoint" parent="Portals/BlackHole2" index="2"]
-position = Vector2(166, 320)
+position = Vector2(164, 320)
 
 [node name="Cells" type="Node" parent="."]
 
@@ -861,6 +969,7 @@ position = Vector2(664, 248)
 [node name="ItemUsePuzzle" type="Node" parent="."]
 
 [node name="Fog" parent="ItemUsePuzzle" instance=ExtResource("5_q7li8")]
+visible = false
 position = Vector2(506, 83)
 
 [node name="ClothRoll" parent="ItemUsePuzzle" instance=ExtResource("7_qvpex")]
@@ -899,7 +1008,7 @@ puzzle = NodePath("../../CanvasLayer/PanelGUI/DragonPuzzle")
 puzzle_name = "dragon"
 
 [node name="CollisionShape2D" parent="MovableWalls/MovableWall2" index="1"]
-position = Vector2(0, -0.5)
+position = Vector2(1.81e-06, 0)
 
 [node name="CollisionShape2D" parent="MovableWalls/MovableWall2/DetectionZone" index="0"]
 z_index = 1
@@ -936,9 +1045,17 @@ puzzle_name = "word_pattern"
 
 [node name="MovableWall6" parent="MovableWalls" node_paths=PackedStringArray("puzzle") instance=ExtResource("2_ohp0w")]
 z_index = 0
+y_sort_enabled = false
 position = Vector2(344, -232)
 puzzle = NodePath("../../CanvasLayer/PanelGUI/GuessPuzzle")
 puzzle_name = "guess"
+
+[node name="MovableWall7" parent="MovableWalls" node_paths=PackedStringArray("puzzle") instance=ExtResource("2_ohp0w")]
+z_index = 0
+y_sort_enabled = false
+position = Vector2(536, -104)
+puzzle = NodePath("../../CanvasLayer/PanelGUI/LogicPuzzle")
+puzzle_name = "logic"
 
 [node name="ScoreboardLayer" type="CanvasLayer" parent="."]
 layer = 0
@@ -1830,16 +1947,6 @@ offset_bottom = 44.0
 grow_horizontal = 2
 script = ExtResource("29_mlke4")
 
-[node name="Label" type="Label" parent="CanvasLayer/PanelGUI/GuessPuzzle"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("18_g87jd")
-theme_override_font_sizes/font_size = 39
-text = "چیست آن چیزی که 
-از هیچ چیز ساخته نشده است، اما با نبودنش معنا می‌یابد؟ 
-همواره در حال گسترش است، اما هرگز پر نمی‌شود؟
-"
-horizontal_alignment = 1
-
 [node name="Node" type="Control" parent="CanvasLayer/PanelGUI/GuessPuzzle"]
 layout_mode = 2
 
@@ -1879,6 +1986,20 @@ offset_right = 828.0
 offset_bottom = 563.0
 theme_override_fonts/font = ExtResource("18_g87jd")
 theme_override_font_sizes/font_size = 42
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/PanelGUI/GuessPuzzle/Node"]
+layout_mode = 2
+offset_left = 174.0
+offset_top = 60.0
+offset_right = 814.0
+offset_bottom = 186.0
+theme_override_fonts/font = ExtResource("18_g87jd")
+theme_override_font_sizes/font_size = 39
+text = "چیست آن چیزی که 
+از هیچ چیز ساخته نشده است، اما با نبودنش معنا می‌یابد؟ 
+همواره در حال گسترش است، اما هرگز پر نمی‌شود؟
+"
 horizontal_alignment = 1
 
 [node name="DiscoveryClue" type="Control" parent="CanvasLayer/PanelGUI"]
@@ -1931,14 +2052,13 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("28_0hy8i")
 text = "You Won!"
 
-[node name="MovableWall" parent="." node_paths=PackedStringArray("puzzle") instance=ExtResource("2_ohp0w")]
-position = Vector2(536, -104)
-puzzle = NodePath("../CanvasLayer/PanelGUI/LogicPuzzle")
-puzzle_name = "logic"
-
 [connection signal="Closed" from="CanvasLayer/PanelGUI" to="Player" method="_on_panel_gui_closed"]
 [connection signal="Opened" from="CanvasLayer/PanelGUI" to="Player" method="_on_panel_gui_opened"]
 
+[editable path="FogTeleporters/FogTeleporter"]
+[editable path="FogTeleporters/FogTeleporter2"]
+[editable path="FogTeleporters/FogTeleporter3"]
+[editable path="FogTeleporters/FogTeleporter4"]
 [editable path="Portals/Portal"]
 [editable path="Portals/Portal2"]
 [editable path="Portals/BlackHole"]

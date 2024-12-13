@@ -2,16 +2,12 @@ extends Node
 
 # Global functions
 
-
-# Item use Puzzle
-enum Items {Oil, Cloth, Stick}
-var player_items = []
-
 # Player Score
 var score: int = 2000
 var bonus: int = 0
 var won: bool = false
 var fog_label: bool = false
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):  # "ui_cancel" is mapped to Esc by default
 		get_tree().paused = false
@@ -29,18 +25,14 @@ func _on_fail(name: String) -> void:
 
 @onready var score_label = $"../ScoreboardLayer/ScoreLabel"
 @onready var bonus_score_label = $"../ScoreboardLayer/bonusScoreLabel"
+
 func update_score_display():
-	# Locate the score label in your UI and update its text
-	
 	if score_label:
 		score_label.text = str(score)
 
 func update_bonus_score_display():
-	# Locate the score label in your UI and update its text
-	
 	if bonus_score_label:
 		bonus_score_label.text = str(bonus)
-
 
 func decrease_score(amount: int) -> void:
 	score -= amount
@@ -57,11 +49,14 @@ func increase_score(amount: int) -> void:
 		score += amount
 	# Update the score display
 	update_score_display()
-	
 
 func _ready():
 	update_score_display()
 	update_bonus_score_display()
+
+# Item use Puzzle
+enum Items {Oil, Cloth, Stick}
+var player_items = []
 
 func aquire_item(Item: Items):
 	player_items.append(Item)
