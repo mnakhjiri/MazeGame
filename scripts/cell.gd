@@ -21,7 +21,7 @@ func _on_detection_body_exited(body: Node2D) -> void:
 			if curr_state == State.Unchanged:
 				curr_state = State.Healthy
 				game_manager.decrease_score(10)
-			if curr_state == State.Healthy:
+			elif curr_state == State.Healthy:
 				curr_state = State.Crumbled
 				crumbled.visible = true
 				healthy.visible = false

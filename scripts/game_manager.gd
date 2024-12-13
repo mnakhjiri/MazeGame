@@ -27,16 +27,17 @@ func _on_success(name: String) -> void:
 func _on_fail(name: String) -> void:
 	decrease_score(10)
 
-
+@onready var score_label = $"../ScoreboardLayer/ScoreLabel"
+@onready var bonus_score_label = $"../ScoreboardLayer/bonusScoreLabel"
 func update_score_display():
 	# Locate the score label in your UI and update its text
-	var score_label = $"../ScoreboardLayer/ScoreLabel"
+	
 	if score_label:
 		score_label.text = str(score)
 
 func update_bonus_score_display():
 	# Locate the score label in your UI and update its text
-	var bonus_score_label = $"../ScoreboardLayer/bonusScoreLabel"
+	
 	if bonus_score_label:
 		bonus_score_label.text = str(bonus)
 
