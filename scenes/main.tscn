@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://bgsj4pso4et0k"]
+[gd_scene load_steps=37 format=4 uid="uid://bgsj4pso4et0k"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_1riqy"]
 [ext_resource type="PackedScene" uid="uid://d0axoyv1suq67" path="res://scenes/player.tscn" id="1_ki16c"]
@@ -17,7 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://bd3i6gpsggeb4" path="res://scenes/match_slot.tscn" id="13_iends"]
 [ext_resource type="PackedScene" uid="uid://by26rqc748mn" path="res://scenes/match.tscn" id="13_m7kun"]
 [ext_resource type="PackedScene" uid="uid://cs2p2i5cchgkn" path="res://scenes/discovery_clue.tscn" id="14_d7whu"]
+[ext_resource type="Script" path="res://scenes/scoreboard_layer.gd" id="15_jp2hi"]
 [ext_resource type="PackedScene" uid="uid://bcme3tlvq8g4h" path="res://scenes/black_hole.tscn" id="16_d3vpv"]
+[ext_resource type="Texture2D" uid="uid://bm0gdjgske8bc" path="res://assets/Sprites/scoreboard/coin_green.png" id="17_gsgv8"]
+[ext_resource type="Texture2D" uid="uid://cgim3elivgber" path="res://assets/Sprites/scoreboard/coin.png" id="17_taprj"]
 [ext_resource type="Script" path="res://scripts/dragon.gd" id="18_7w21a"]
 [ext_resource type="FontFile" uid="uid://cbdaogca3knh7" path="res://assets/Fonts/Arapix.woff" id="18_g87jd"]
 [ext_resource type="Texture2D" uid="uid://boc1ryi8a5jpi" path="res://assets/Sprites/tiles/Dragon_idle.png" id="19_xuqcr"]
@@ -25,6 +28,7 @@
 [ext_resource type="Script" path="res://scripts/word_pattern.gd" id="23_6ierk"]
 [ext_resource type="Script" path="res://scripts/hat_logic_puzzle.gd" id="23_44mpn"]
 [ext_resource type="Texture2D" uid="uid://dyoi6xa4brh54" path="res://assets/Sprites/tiles/hats_puzzle.png" id="24_n1y1b"]
+[ext_resource type="FontFile" uid="uid://dj2hsppxv5xb3" path="res://assets/Fonts/PixelOperator8-Bold.ttf" id="28_0hy8i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p2tm8"]
 texture = ExtResource("3_sa620")
@@ -470,6 +474,34 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_p2tm8")
 sources/2 = SubResource("TileSetAtlasSource_5fjwx")
 
+[sub_resource type="GDScript" id="GDScript_d1y28"]
+resource_name = "finalCell.gd"
+script/source = "extends \"res://scripts/cell.gd\"
+
+@onready var win_menu = $\"/root/Main/PopUpPanel/WinPanelContainer\"
+@onready var win_menu_label = $\"/root/Main/PopUpPanel/WinPanelContainer/WinPanelText\"
+func _on_detection_body_exited(body: Node2D) -> void:
+	if body.is_in_group('Player'):
+		if game_manager.won == false:
+			game_manager.increase_score(2000)
+			get_tree().paused = true
+			game_manager.won = true
+			var total_score: int = game_manager.score + game_manager.bonus
+			var rank: String = \"\"
+			if total_score >= 3750:
+				rank = \"S\"
+			elif total_score >=3650:
+				rank = \"A\"
+			elif total_score >= 3400:
+				rank = \"B\"
+			else:
+				rank = \"C\"
+			var win_message: String = \"You Won!\\nTotal Score: \" + str(total_score) + \"\\nRank: \" + rank
+			win_menu_label.text = win_message
+			win_menu.visible = true
+			
+"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_u5wje"]
 atlas = ExtResource("19_xuqcr")
 region = Rect2(0, 0, 64, 96)
@@ -516,7 +548,7 @@ tile_set = SubResource("TileSet_x1bgr")
 
 [node name="Player" parent="." instance=ExtResource("1_ki16c")]
 unique_name_in_owner = true
-position = Vector2(345, -63)
+position = Vector2(535, -8)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2.5, 2.5)
@@ -695,17 +727,20 @@ position = Vector2(344, -8)
 [node name="Cell41" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(408, -8)
 
-[node name="Cell42" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell7" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(472, -8)
+in_fog = true
 
-[node name="Cell43" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell8" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(536, -8)
+in_fog = true
 
 [node name="Cell44" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(600, -8)
 
-[node name="Cell45" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FinalCell" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(664, -8)
+script = SubResource("GDScript_d1y28")
 
 [node name="Cell46" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(152, 56)
@@ -722,11 +757,13 @@ position = Vector2(344, 56)
 [node name="Cell50" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(408, 56)
 
-[node name="Cell51" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell5" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(472, 56)
+in_fog = true
 
-[node name="Cell52" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell6" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(536, 56)
+in_fog = true
 
 [node name="Cell53" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(600, 56)
@@ -749,11 +786,13 @@ position = Vector2(344, 120)
 [node name="Cell59" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(408, 120)
 
-[node name="Cell60" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell3" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(472, 120)
+in_fog = true
 
-[node name="Cell61" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell4" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(536, 120)
+in_fog = true
 
 [node name="Cell62" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(600, 120)
@@ -776,11 +815,13 @@ position = Vector2(344, 184)
 [node name="Cell68" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(408, 184)
 
-[node name="Cell69" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell1" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(472, 184)
+in_fog = true
 
-[node name="Cell70" parent="Cells" instance=ExtResource("4_0h6k1")]
+[node name="FogCell2" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(536, 184)
+in_fog = true
 
 [node name="Cell71" parent="Cells" instance=ExtResource("4_0h6k1")]
 position = Vector2(600, 184)
@@ -884,6 +925,63 @@ position = Vector2(344, -40)
 puzzle = NodePath("../../CanvasLayer/PanelGUI/WordPattern")
 puzzle_name = "word_pattern"
 
+[node name="ScoreboardLayer" type="CanvasLayer" parent="."]
+layer = 0
+follow_viewport_enabled = true
+script = ExtResource("15_jp2hi")
+
+[node name="ScoreContainer" type="Panel" parent="ScoreboardLayer"]
+offset_left = 115.0
+offset_top = -194.0
+offset_right = 155.0
+offset_bottom = -154.0
+scale = Vector2(2.32154, 0.705922)
+
+[node name="ScoreLabel" type="Label" parent="ScoreboardLayer"]
+z_index = 6
+offset_left = 139.0
+offset_top = -187.0
+offset_right = 234.0
+offset_bottom = -164.0
+theme_override_fonts/font = ExtResource("12_65vxo")
+theme_override_font_sizes/font_size = 15
+text = "Score"
+
+[node name="CoinIcon" type="TextureRect" parent="ScoreboardLayer"]
+z_index = 10
+offset_left = 117.0
+offset_top = -189.0
+offset_right = 432.0
+offset_bottom = 61.0
+scale = Vector2(0.0636853, 0.0720761)
+texture = ExtResource("17_taprj")
+
+[node name="bonusCoinIcon" type="TextureRect" parent="ScoreboardLayer"]
+z_index = 10
+offset_left = 117.0
+offset_top = -162.0
+offset_right = 432.0
+offset_bottom = 88.0
+scale = Vector2(0.0636853, 0.0720761)
+texture = ExtResource("17_gsgv8")
+
+[node name="bonusScoreLabel" type="Label" parent="ScoreboardLayer"]
+z_index = 6
+offset_left = 139.0
+offset_top = -160.0
+offset_right = 234.0
+offset_bottom = -137.0
+theme_override_fonts/font = ExtResource("12_65vxo")
+theme_override_font_sizes/font_size = 15
+text = "Score"
+
+[node name="bonusScoreContainer" type="Panel" parent="ScoreboardLayer"]
+offset_left = 115.0
+offset_top = -165.0
+offset_right = 155.0
+offset_bottom = -125.0
+scale = Vector2(2.32154, 0.705922)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 script = ExtResource("10_62tq2")
@@ -891,7 +989,6 @@ script = ExtResource("10_62tq2")
 [node name="PanelGUI" parent="CanvasLayer" instance=ExtResource("10_1hcne")]
 unique_name_in_owner = true
 process_mode = 3
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -907,7 +1004,6 @@ mouse_filter = 1
 mouse_default_cursor_shape = 3
 
 [node name="MatchPuzzle" type="Container" parent="CanvasLayer/PanelGUI"]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.498
@@ -1682,6 +1778,24 @@ theme_override_fonts/font = ExtResource("18_g87jd")
 theme_override_font_sizes/font_size = 39
 text = "بستن (Tab)"
 vertical_alignment = 2
+
+[node name="PopUpPanel" type="CanvasLayer" parent="."]
+
+[node name="WinPanelContainer" type="PanelContainer" parent="PopUpPanel"]
+visible = false
+offset_left = 91.0
+offset_top = 215.0
+offset_right = 209.0
+offset_bottom = 255.0
+scale = Vector2(3.99781, 5.91358)
+
+[node name="WinPanel" type="Panel" parent="PopUpPanel/WinPanelContainer"]
+layout_mode = 2
+
+[node name="WinPanelText" type="Label" parent="PopUpPanel/WinPanelContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("28_0hy8i")
+text = "You Won!"
 
 [connection signal="Closed" from="CanvasLayer/PanelGUI" to="Player" method="_on_panel_gui_closed"]
 [connection signal="Opened" from="CanvasLayer/PanelGUI" to="Player" method="_on_panel_gui_opened"]
