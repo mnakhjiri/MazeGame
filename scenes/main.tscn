@@ -514,11 +514,6 @@ z_index = -1
 tile_map_data = PackedByteArray("AAAFAP//AgAFAAEAAAABAP//AgAFAAEAAAD9////AgAFAAEAAAD/////AgAEAAEAAAADAP//AgAEAAEAAAAHAP//AgAEAAEAAAALAO//AgAEAAEAAAAPAO//AgAEAAEAAAAbAO//AgAEAAEAAAAnAO//AgAEAAEAAAAnAPP/AgAEAAEAAAAjAPP/AgAEAAEAAAAXAPP/AgAEAAEAAAATAPP/AgAEAAEAAAAPAPP/AgAEAAEAAAATAPf/AgAEAAEAAAAbAPf/AgAEAAEAAAAnAPf/AgAEAAEAAAAnAPv/AgAEAAEAAAAjAPv/AgAEAAEAAAAfAPv/AgAEAAEAAAAXAPv/AgAEAAEAAAALAP//AgAEAAEAAAAfAP//AgAEAAEAAAAjAP//AgAEAAEAAAAnAP//AgAEAAEAAAAfAAMAAgAEAAEAAAAbAAMAAgAEAAEAAAATAAcAAgAEAAEAAAAXAAcAAgAEAAEAAAAfAAcAAgAEAAEAAAAnAAcAAgAEAAEAAAAnAAsAAgAEAAEAAAAfAAsAAgAEAAEAAAAbAAsAAgAEAAEAAAAXAAsAAgAEAAEAAAATAAsAAgAEAAEAAAAPAAsAAgAEAAEAAAALAA8AAgAEAAEAAAATAA8AAgAEAAEAAAAXAA8AAgAEAAEAAAAbAA8AAgAEAAEAAAAfAA8AAgAEAAEAAAAjAA8AAgAEAAEAAAAnAA8AAgAEAAEAAAAnAA0AAgAEAAQAAAAnAPn/AgAEAAQAAAApAPH/AgAFAAQAAAApAPn/AgAFAAQAAAApAAUAAgAFAAQAAAApAAkAAgAFAAQAAAApAA0AAgAFAAQAAAAlAA0AAgAFAAQAAAAlAAkAAgAFAAQAAAAnAAkAAgAEAAQAAAAlAAEAAgAFAAQAAAAlAPn/AgAFAAQAAAAhAPH/AgAFAAQAAAAdAPH/AgAFAAQAAAAZAPX/AgAFAAQAAAAhAPX/AgAFAAQAAAAZAPn/AgAFAAQAAAAdAP3/AgAFAAQAAAAdAAEAAgAFAAQAAAAhAAUAAgAFAAQAAAAdAAkAAgAFAAQAAAAZAAkAAgAFAAQAAAARAAUAAgAFAAQAAAAJAA0AAgAFAAQAAAAJAAkAAgAFAAQAAAAJAAUAAgAFAAQAAAANAAUAAgAFAAQAAAAJAAEAAgAFAAQAAAANAAEAAgAFAAQAAAARAAEAAgAFAAQAAAAVAAEAAgAFAAQAAAARAPn/AgAFAAQAAAARAP3/AgAFAAQAAAANAP3/AgAFAAQAAAAJAP3/AgAFAAQAAAAJAPX/AgAFAAQAAAANAPX/AgAFAAQAAAAJAPH/AgAFAAQAAAANAPn/AgAFAAQAAAAVAPH/AgAFAAQAAAAPAA8AAgAEAAEAAAARAA0AAgAFAAQAAAAVAP3/AgAFAAQAAAAhAPn/AgAFAAQAAAAXAAMAAgAEAAEAAAA=")
 tile_set = SubResource("TileSet_x1bgr")
 
-[node name="MovableWall" parent="Tilemaps" node_paths=PackedStringArray("puzzle") instance=ExtResource("2_ohp0w")]
-position = Vector2(344, -232)
-puzzle = NodePath("../../CanvasLayer/PanelGUI/GuessPuzzle")
-puzzle_name = "guess"
-
 [node name="Player" parent="." instance=ExtResource("1_ki16c")]
 unique_name_in_owner = true
 position = Vector2(342, -198)
@@ -904,6 +899,11 @@ position = Vector2(536, -104)
 puzzle = NodePath("../../CanvasLayer/PanelGUI/Logicpuzzle")
 puzzle_name = "logic"
 
+[node name="MovableWall7" parent="MovableWalls" node_paths=PackedStringArray("puzzle") instance=ExtResource("2_ohp0w")]
+position = Vector2(344, -232)
+puzzle = NodePath("../../CanvasLayer/PanelGUI/GuessPuzzle")
+puzzle_name = "guess"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
 script = ExtResource("10_62tq2")
@@ -911,7 +911,6 @@ script = ExtResource("10_62tq2")
 [node name="PanelGUI" parent="CanvasLayer" instance=ExtResource("10_1hcne")]
 unique_name_in_owner = true
 process_mode = 3
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1731,18 +1730,11 @@ anchors_preset = -1
 anchor_left = 0.12
 anchor_right = 0.5
 offset_left = -90.8
-offset_top = 44.0
-offset_right = -90.8
-offset_bottom = 44.0
+offset_top = 39.0
+offset_right = -90.5
+offset_bottom = 39.0
 grow_horizontal = 2
 script = ExtResource("27_186w6")
-
-[node name="Label" type="Label" parent="CanvasLayer/PanelGUI/GuessPuzzle"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("18_g87jd")
-theme_override_font_sizes/font_size = 39
-text = "آن چیست که هر چه از آن کم کنی بیشتر میشود؟"
-horizontal_alignment = 1
 
 [node name="Node" type="Control" parent="CanvasLayer/PanelGUI/GuessPuzzle"]
 layout_mode = 2
@@ -1783,6 +1775,20 @@ offset_right = 828.0
 offset_bottom = 563.0
 theme_override_fonts/font = ExtResource("18_g87jd")
 theme_override_font_sizes/font_size = 42
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="CanvasLayer/PanelGUI/GuessPuzzle/Node"]
+layout_mode = 2
+offset_left = 208.0
+offset_top = 48.0
+offset_right = 751.0
+offset_bottom = 174.0
+theme_override_fonts/font = ExtResource("18_g87jd")
+theme_override_font_sizes/font_size = 39
+text = "آن چیست که از هیچ چیز ساخته نشده است،
+اما با نبودنش معنا می‌یابد؟
+همواره در حال گسترش است، اما هرگز پر نمی‌شود؟
+"
 horizontal_alignment = 1
 
 [node name="DiscoveryClue" type="Control" parent="CanvasLayer/PanelGUI"]

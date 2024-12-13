@@ -1,15 +1,13 @@
 extends Container
 
-@onready var guess_label: Label = $Label
-@onready var game_manager: Node = %GameManager
 @onready var answer: TextEdit = $Node/TextEdit
 @onready var response: Label = $Node/Label2
 
 func _input(event: InputEvent) -> void:
 	if visible:
 		if event.is_action_pressed('next_stage'):
-			if answer.text == 'حفره':
-				response.text = 'آفرین! این هم از حفره...'
+			if answer.text == 'چاله':
+				response.text = 'آفرین! این هم از چاله...'
 				response.add_theme_color_override("font_color", Color(0, 1, 0))
 				var timer = Timer.new()
 				timer.one_shot = true
